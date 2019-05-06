@@ -96,10 +96,10 @@ android {
         targetSdkVersion 28
         multiDexEnabled true
 
-        externalNativeBuild {
-            ndkBuild {
-	        arguments "NDK_MODULE_PATH=jni"
-	    }
+        ndk {
+            // Specifies the ABI configurations of your native
+            // libraries Gradle should build and package with your APK.
+            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
         }
     }
 
@@ -119,6 +119,8 @@ android {
                 srcDir 'apollo/src'
                 srcDir 'src'
             }
+            main.jni.srcDirs = ['jni']
+            main.jniLibs.srcDirs = ['libs']
         }
 
         plus1.res.srcDirs = ['res-plus1']
@@ -178,6 +180,11 @@ android {
         plus1 {
             applicationId 'com.frostwire.android'
             versionCode 9070000 + project.ext.versionCode
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path file('jni/CMakeLists.txt')
         }
     }
 

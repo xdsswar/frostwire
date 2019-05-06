@@ -77,6 +77,7 @@ import com.frostwire.android.gui.views.MiniPlayerView;
 import com.frostwire.android.gui.views.TimerService;
 import com.frostwire.android.gui.views.TimerSubscription;
 import com.frostwire.android.offers.Offers;
+import com.frostwire.android.python.PythonBridge;
 import com.frostwire.platform.Platforms;
 import com.frostwire.util.Logger;
 import com.frostwire.util.Ref;
@@ -128,12 +129,20 @@ public class MainActivity extends AbstractActivity implements
 
     private boolean shuttingdown = false;
 
+    static {
+        System.loadLibrary("python_bridge");
+    }
+
     public MainActivity() {
         super(R.layout.activity_main);
         controller = new MainController(this);
         fragmentsStack = new Stack<>();
         permissionsCheckers = initPermissionsCheckers();
         localBroadcastReceiver = new LocalBroadcastReceiver();
+
+        for (int i=1; i <= 40; i++) {
+            System.out.println("PythonBridge.square(" + i + ") -> " + PythonBridge.square(i));
+        }
     }
 
     @Override
