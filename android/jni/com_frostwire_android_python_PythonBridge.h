@@ -15,6 +15,8 @@ extern "C" {
 JNIEXPORT jint JNICALL Java_com_frostwire_android_python_PythonBridge_square
   (JNIEnv *, jclass, jint);
 
+void python_vm_test();
+  
 #ifdef __cplusplus
 }
 #endif
